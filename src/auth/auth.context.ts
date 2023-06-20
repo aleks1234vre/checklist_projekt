@@ -1,13 +1,17 @@
-import { createContext } from 'react';
+import { createContext, ReactNode } from 'react';
 
 export interface AuthContextProps {
     isAuthenticated: boolean;
     login: (data: any) => Promise<void>;
-    // Add other authentication-related values and functions here
+    logout: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
     isAuthenticated: false,
-    login: () => Promise.resolve(),
-    // Initialize other authentication-related values and functions here
+    login: () => Promise.resolve(), // Placeholder implementation
+    logout: () => Promise.resolve()
 });
+
+export interface AuthProviderProps {
+    children: ReactNode;
+}

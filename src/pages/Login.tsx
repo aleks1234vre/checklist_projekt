@@ -20,11 +20,11 @@ const Login = () => {
         try {
              const loginResponse = await axios.post('http://localhost:3000/auth/login', data, { withCredentials: true });
 
-            if (loginResponse.status === 200) {
+            if (loginResponse.status === 201) {
                 setRedirect(true);
             }
         } catch (error) {
-            if ((error as AxiosError).response?.status != 200) {
+            if ((error as AxiosError).response?.status != 201) {
                 setErrorText('Invalid email or password');
             }
         }

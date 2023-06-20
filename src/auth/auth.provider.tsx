@@ -1,37 +1,42 @@
-import { ReactNode, useState } from 'react';
-import {AuthContext, AuthContextProps} from './auth.context';
-import axios from "axios";
+import React, { useState } from 'react';
+import {AuthContext, AuthContextProps, AuthProviderProps} from './auth.context';
+import axios from 'axios';
 
-
-export interface AuthProviderProps {
-    children: ReactNode;
-}
-
-const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const handleLogin = async (data: any) => {
         try {
             // Implement your login logic using the provided data
             // Example: Call an API endpoint to authenticate the user
-            const response = await axios.post('http://localhost:3000/auth/login', data, { withCredentials: true });
+            const response = await axios.post('http://localhost:3000/auth/login', data, {
+                withCredentials: true,
+            });
 
-
-            if (response.status === 200) {
+            if (response.status === 201) {
                 setIsAuthenticated(true);
-                // Perform any additional actions after successful login
             } else {
-                // Handle login error, display error message, etc.
+                // Handle authentication failure
             }
         } catch (error) {
-            // Handle login error, display error message, etc.
+            // Handle error
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:3000/auth/logout', null, { withCredentials: true });
+            setIsAuthenticated(false);
+            // Perform any additional logic after successful logout
+        } catch (error) {
+            // Handle error
         }
     };
 
     const authContextValue: AuthContextProps = {
         isAuthenticated,
         login: handleLogin,
-        // Other authentication-related values and functions
+        logout: handleLogout,
     };
 
     return (
@@ -40,5 +45,3 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         </AuthContext.Provider>
     );
 };
-
-export default AuthProvider;
