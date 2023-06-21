@@ -9,20 +9,18 @@ const style = {
 const CreateTask = () => {
     const [title_task, setTitleTask] = useState("");
     const [description_task, setDescriptionTask] = useState("");
-    const [category_id, setCategory] = useState(1);
+    const [category_id, setCategory] = useState("");
+
     const [errorText, setErrorText] = useState("");
     const [redirect, setRedirect] = useState(false);
-    const [categories, setCategories] = useState([""]);
-    const [loading, setLoading] = useState(true); // New state to track loading state
 
+    const [categories, setCategories] = useState([]);
     const getCategories = async () => {
         try {
             const response = await axios.get("http://localhost:3000/categories");
             setCategories(response.data);
-            setLoading(false); // Set loading state to false once categories are fetched
         } catch (error) {
             // Handle error
-            setLoading(false); // Set loading state to false even if fetching categories fails
         }
     };
 
@@ -36,16 +34,14 @@ const CreateTask = () => {
         const data = {
             title_task,
             description_task,
-            category_id: category_id || null, // Use null if category_id is falsy
+            category_id,
         };
         console.log(data);
 
         try {
-            const res = await axios.post(
-                "http://localhost:3000/tasks",
-                data,
-                { withCredentials: true }
-            );
+            const res = await axios.post("http://localhost:3000/tasks", data, {
+                withCredentials: true,
+            });
 
             if (res.status === 201) {
                 setRedirect(true);
@@ -54,16 +50,15 @@ const CreateTask = () => {
             }
         } catch (error) {
             // Handle error
-            setErrorText("napaka");
         }
     };
 
+    useEffect(() => {
+        console.log(categories);
+    }, [categories]);
+
     if (redirect) {
         return <Navigate to="/" />;
-    }
-
-    if (loading) {
-        return <div>Loading categories...</div>; // Placeholder for loading state
     }
 
     return (
@@ -73,38 +68,52 @@ const CreateTask = () => {
                 <form onSubmit={submit}>
                     <h1 className="h3 mb-3 fw-normal">Create new task</h1>
                     <div className="form-floating">
-                        <input type="text" className="form-control" id="floatingInput"
-                               placeholder="Title"
-                               onChange={(e) => setTitleTask(e.target.value)} required/>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="floatingInput"
+                            placeholder="Title"
+                            onChange={(e) => setTitleTask(e.target.value)}
+                            required
+                        />
                         <label htmlFor="floatingInput">Title</label>
                     </div>
+                    {categories.length > 0 ? (
+                        <div className="form-floating">
+                            <select className="form-control" id="floatingSelect"
+                                    placeholder="Category"
+                                    onChange={(e) => setCategory(e.target.value)}>
+                                {categories.map((category:any, i) =>
+                                {
+                                    return (
+                                        <option value={category.id} key={i}>
+                                            {category.title}</option>)
+                                })}
+                            </select>
+                            <label htmlFor="floatingSelect">Category</label>
+                        </div>
+                    ) : (
+                        <div>Loading categories...</div>
+                    )}
                     <div className="form-floating">
-                        <select className="form-control" id="floatingSelect"
-                                placeholder="Category"
-                                onChange={(e) => setCategory(parseInt(e.target.value,10)) }required>
-                            {categories.map((category:any)=>{
-                                return (
-                                    <option value={category.id} key={category.id}>{category.title}</option>
-                                )})
-                            }
-                        </select>
-                        <label htmlFor="floatingSelect">Category</label>
-                    </div>
-                    <div className="form-floating">
-                      <textarea className="form-control" id="floatingContent"
-                                placeholder="Input content"
-                                style={style}
-                                rows={10}
-                                onChange={(e) => setDescriptionTask(e.target.value)} required>
-                      </textarea>
+            <textarea
+                className="form-control"
+                id="floatingContent"
+                placeholder="Input content"
+                style={style}
+                rows={10}
+                onChange={(e) => setDescriptionTask(e.target.value)}
+                required
+            ></textarea>
                         <label htmlFor="floatingContent">Input content</label>
                     </div>
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">Create</button>
+                    <button className="w-100 btn btn-lg btn-primary" type="submit">
+                        Create
+                    </button>
                 </form>
             </main>
         </>
-    )
-}
+    );
+};
 
-export default CreateTask;
-
+export default CreateTask

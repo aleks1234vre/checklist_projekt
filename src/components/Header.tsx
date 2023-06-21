@@ -119,7 +119,7 @@ const Header = () => {
                                         Profile
                                     </button>
                                     <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/createtask")}>
-                                        Create new
+                                        New note
                                     </button>
                                 </div>
                             ) : (

@@ -63,9 +63,17 @@ const Register = () => {
           }
       }
 
+      if(pass1.length < 8 || pass2.length<8)
+      {
+          setErrorText("Password should be atleast 8 characters long")
 
       }
 
+      if (phoneNumber.includes(" ") || (!/^[0-9]+$/.test(phoneNumber))){
+          setErrorText("Phone number should not contain spaces or letters.");
+
+      }
+}
 
 
   if (redirect) {
@@ -147,6 +155,6 @@ const Register = () => {
             </main>
         </>
     )
-}
 
+}
 export default Register;
