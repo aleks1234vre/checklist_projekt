@@ -1,5 +1,5 @@
 import './Register.css';
-import { SyntheticEvent, useState } from "react";
+import {SyntheticEvent, useEffect, useState} from "react";
 import axios, { AxiosError } from "axios";
 import { Navigate } from "react-router-dom";
 
@@ -8,7 +8,14 @@ const Login = () => {
     const [pass, setPass] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [errorText, setErrorText] = useState('');
+    const [hasCookie, setHasCookie] = useState(localStorage.getItem('hasCookie') === 'false');
 
+    useEffect(() => {
+        if (redirect) {
+            // Perform the page refresh here
+            window.location.reload();
+        }
+    }, [redirect]);
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
@@ -22,6 +29,8 @@ const Login = () => {
 
             if (loginResponse.status === 201) {
                 setRedirect(true);
+                localStorage.setItem('hasCookie', 'true');
+                setHasCookie(true);
             }
         } catch (error) {
             if ((error as AxiosError).response?.status != 201) {
@@ -42,7 +51,7 @@ const Login = () => {
                     <div className="form-floating" >
                         <input type="email" className="form-control" id="floatingInput"
                                placeholder="name@example.com"
-                               onChange={(e) => setEmail(e.target.value)} />
+                               onChange={(e) => setEmail(e.target.value)} required />
                         <label htmlFor="floatingInput">Email address</label>
                     </div>
                     <div className="form-floating">
