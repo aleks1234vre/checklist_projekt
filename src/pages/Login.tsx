@@ -8,7 +8,7 @@ const Login = () => {
     const [pass, setPass] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [errorText, setErrorText] = useState('');
-    const [hasCookie, setHasCookie] = useState(localStorage.getItem('hasCookie') === 'false');
+
 
     useEffect(() => {
         if (redirect) {
@@ -30,7 +30,7 @@ const Login = () => {
             if (loginResponse.status === 201) {
                 setRedirect(true);
                 localStorage.setItem('hasCookie', 'true');
-                setHasCookie(true);
+
             }
         } catch (error) {
             if ((error as AxiosError).response?.status != 201) {

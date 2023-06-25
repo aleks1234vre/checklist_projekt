@@ -1,15 +1,14 @@
 import axios from "axios";
-import {useState} from "react";
+
 
 
 const Header = () => {
-    const [hasCookie, setHasCookie] = useState(localStorage.getItem('hasCookie') === 'true');
+
 
     const handleLogout = async () => {
         try {
             await axios.post('http://localhost:3000/auth/logout', null, {withCredentials: true});
             localStorage.removeItem('hasCookie');
-            setHasCookie(false);
             window.location.href = '/';
 
         } catch (error) {
@@ -110,16 +109,19 @@ const Header = () => {
                             <strong>Album</strong>
                         </a>
                         <div>
-                            {hasCookie ? (
+                            {localStorage.getItem('hasCookie') ? (
                                 <div>
                                     <button className="btn btn-bd-primary py-2 me-2" onClick={handleLogout}>
                                         Logout
                                     </button>
-                                    <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/auth/profile")}>
+                                    <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/profile")}>
                                         Profile
                                     </button>
+                                    <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/tasksprofile")}>
+                                        My tasks
+                                    </button>
                                     <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/createtask")}>
-                                        New note
+                                        New task
                                     </button>
                                 </div>
                             ) : (

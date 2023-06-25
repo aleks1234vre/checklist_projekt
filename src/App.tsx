@@ -6,6 +6,9 @@ import Register from "./pages/Register.tsx";
 import Wrapper from "./components/Wrapper.tsx";
 import CreateTask from "./pages/CreateTask.tsx";
 import Profile from "./pages/profile.tsx";
+import CreateCategoryAdmin from "./pages/CreateCategory(admin).tsx";
+import TasksProfile from "./pages/TasksProfile.tsx";
+import TaskView from "./pages/TaskView.tsx";
 
 function App() {
 
@@ -18,7 +21,10 @@ function App() {
                     <Route path={'/login'} element={<Login />} />
                     <Route path={'/register'} element={<Register />} />
                     <Route path={'/createtask'} element={<CreateTask/>} />
-                    <Route path={'/auth/profile'} element={<Profile/>} />
+                    <Route path={'/profile'} element={<Profile/>} />
+                    <Route path={'tasksprofile'} element={<TasksProfile/>} />
+                    <Route path={'createcategory'} element={<CreateCategoryAdmin/>} />
+                    <Route path={'/task/:id'} element={<TaskView/>} />
 
                 </Routes>
             </BrowserRouter>

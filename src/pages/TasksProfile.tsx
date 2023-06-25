@@ -1,11 +1,17 @@
-import Card from "./Card.tsx";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import Card from "../components/Card.tsx";
 
-const Album = () => {
+type Task = {
+    id: number;
+    title_task: string;
+    description_task: string;
+    created_at: string;
+};
 
+const TasksProfile = () => {
+    const [tasks, setTasks] = useState<Task[]>([]); // Explicitly define the type as Task[]
     const [loading, setLoading] = useState(true);
-    const [recentTasks, setRecentTasks] = useState([]);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -13,12 +19,14 @@ const Album = () => {
                 const tasksResponse = await axios.get("http://localhost:3000/tasks", {
                     withCredentials: true,
                 });
-                const sortedTasks = tasksResponse.data.sort((a: any, b: any) => {
-                    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+                const sortedTasks = tasksResponse.data.sort((a: Task, b: Task) => {
+                    return (
+                        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                    );
                 });
+
+                setTasks(sortedTasks);
                 setLoading(false);
-                const recentTasks = sortedTasks.slice(0, 4);
-                setRecentTasks(recentTasks);
             } catch (error) {
                 // Handle error
                 setLoading(false);
@@ -34,9 +42,9 @@ const Album = () => {
 
     return (
         <div>
-            {localStorage.getItem('hasCookie') ? (
+            {localStorage.getItem("hasCookie") ? (
                 <>
-                    <h1 style={{ paddingLeft: "6%" }}>Recent tasks</h1>
+                    <h1 style={{ paddingLeft: "6%" }}>All tasks</h1>
                     <hr />
                     <div
                         style={{
@@ -47,10 +55,12 @@ const Album = () => {
                             paddingLeft: "6%",
                         }}
                     >
-                        {recentTasks.map((task: any) => (
-                            <div style={{ width: "23%", marginBottom: "10px", marginRight: "20px" }}>
+                        {tasks.map((task) => (
+                            <div
+                                key={task.id}
+                                style={{ width: "23%", marginBottom: "10px", marginRight: "20px" }}
+                            >
                                 <Card
-                                    key={task.id}
                                     title={task.title_task}
                                     description={task.description_task}
                                     taskId={task.id}
@@ -64,4 +74,4 @@ const Album = () => {
     );
 };
 
-export default Album;
+export default TasksProfile;

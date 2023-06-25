@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const Profile = () => {
+const NotesProfile = () => {
     const [profileData, setProfileData] = useState({
         first_name: "",
         last_name: "",
@@ -47,4 +47,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default NotesProfile;

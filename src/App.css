@@ -69,3 +69,10 @@
 .bd-mode-toggle {
   z-index: 1500;
 }
+
+
+.rowtaks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
