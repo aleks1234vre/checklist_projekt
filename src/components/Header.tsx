@@ -111,16 +111,16 @@ const Header = () => {
                         <div>
                             {localStorage.getItem('hasCookie') ? (
                                 <div>
-                                    <button className="btn btn-bd-primary py-2 me-2" onClick={handleLogout}>
+                                    <button className="button_bigger"  onClick={handleLogout}>
                                         Logout
                                     </button>
-                                    <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/profile")}>
+                                    <button  className="button_bigger" onClick={() => (window.location.href = "/profile")}>
                                         Profile
                                     </button>
-                                    <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/tasksprofile")}>
+                                    <button className="button_bigger"   onClick={() => (window.location.href = "/tasksprofile")}>
                                         My tasks
                                     </button>
-                                    <button className="btn btn-bd-primary py-2 me-2" onClick={() => (window.location.href = "/createtask")}>
+                                    <button className="button_bigger"  onClick={() => (window.location.href = "/createtask")}>
                                         New task
                                     </button>
                                 </div>

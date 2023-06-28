@@ -8,7 +8,7 @@ const style = {
 
 const CreateTask = () => {
     const [title_task, setTitleTask] = useState("");
-    const [descriptions, setDescriptions] = useState([""]); // State for task descriptions
+    const [description_task, setDescription] = useState([""]); // State for task descriptions
     const [category_id, setCategory] = useState(1);
 
     const [errorText, setErrorText] = useState("");
@@ -28,28 +28,14 @@ const CreateTask = () => {
         getCategories();
     }, []);
 
-    const handleDescriptionChange = (index: number, value: string) => {
-        const newDescriptions = [...descriptions];
-        newDescriptions[index] = value;
-        setDescriptions(newDescriptions);
-    };
 
-    const addDescriptionBox = () => {
-        setDescriptions([...descriptions, ""]);
-    };
-
-    const removeDescriptionBox = (index: number) => {
-        const newDescriptions = [...descriptions];
-        newDescriptions.splice(index, 1);
-        setDescriptions(newDescriptions);
-    };
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
         const data = {
             title_task,
-            description_task: descriptions.join("\n"),
+            description_task,
             category_id,
         };
         console.log(data);
@@ -111,45 +97,19 @@ const CreateTask = () => {
                     ) : (
                         <div>Loading categories...</div>
                     )}
-                    {/* Render task description input boxes */}
-                    {descriptions.map((description, index) => (
-                        <div className="form-floating d-grid" key={index}>
-    <textarea
-        className="form-control"
-        id={`floatingContent${index}`}
-        placeholder="Input content"
-        style={style}
-        rows={2}
-        value={description}
-        onChange={(e) => handleDescriptionChange(index, e.target.value)}
-        required
-    ></textarea>
-
-                            <label htmlFor={`floatingContent${index}`}>Task content</label>
-                            {index > 0 && (
-                                <div className="text-center">
-                                <button
-                                    type="button"
-                                    className="btn btn-danger align-self-center"
-                                    onClick={() => removeDescriptionBox(index)}
-                                >
-                                    -
-                                </button>
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                        <div className="text-center">
-                        <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={addDescriptionBox}
-
-                        >
-                            Add another task +
-
-                        </button>
-                        </div>
+                    <div className="form-floating d-grid">
+            <textarea
+                className="form-control"
+                id="floatingContent"
+                placeholder="Task description"
+                style={style}
+                rows={6}
+                value={description_task}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+            ></textarea>
+                        <label htmlFor="floatingContent">Task description</label>
+                    </div>
                     <button className="w-100 btn btn-lg btn-primary" type="submit">
                         Create
                     </button>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Card from "../components/Card.tsx";
+import Card from "../components/Card";
 
 type Task = {
     id: number;
