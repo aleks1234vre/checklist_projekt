@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+
+
 const NotesProfile = () => {
     const [profileData, setProfileData] = useState({
         id: "",
@@ -20,6 +22,7 @@ const NotesProfile = () => {
         address: "",
         phone_number: ""
     });
+    const [errorText, setErrorText] = useState("");
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -54,18 +57,32 @@ const NotesProfile = () => {
 
     const handleSave = async () => {
         try {
-            console.log(updatedProfileData.address)
-            console.log(updatedProfileData.phone_number)
-            await axios.patch(`http://localhost:3000/users/${updatedProfileData.id}`, updatedProfileData, { withCredentials: true });
+            // Validation: Check phone number length and characters
+            const phoneNumber = String(updatedProfileData.phone_number);
+
+            if (phoneNumber.includes(" ") || (!/^[0-9]+$/.test(phoneNumber))){
+                setErrorText("Phone number should not contain spaces or letters.");
+
+            }
+
+            if(phoneNumber.length > 8){
+                setErrorText("Phone number should not be over 8 characters long.")
+
+            }
+
+            await axios.patch(`http://localhost:3000/users/${updatedProfileData.id}`, updatedProfileData, {
+                withCredentials: true,
+            });
 
             setProfileData(updatedProfileData);
             setIsEditing(false);
             console.log("Profile updated successfully");
-
         } catch (error) {
             console.error("Error updating profile:", error);
+            // Handle the error or display an error message to the user
         }
     };
+
 
     const handleCancel = () => {
         setIsEditing(false);
@@ -81,68 +98,91 @@ const NotesProfile = () => {
     }
 
     return (
-        <div>
-            <h2>Profile</h2>
-            <p>
-        <span style={{ marginRight: '20px' }}>
-          Name:{" "}
-            {isEditing ? (
-                <input
-                    type="text"
-                    name="first_name"
-                    value={updatedProfileData.first_name}
-                    onChange={handleInputChange}
-                />
-            ) : (
-                profileData.first_name
-            )}
-        </span>
-                {!isEditing && (
-                    <button className="button_small" onClick={handleEdit}>
-                        Edit
-                    </button>
-                )}
-            </p>
-            <p>
-                Last Name:{" "}
-                {isEditing ? (
-                    <input
-                        type="text"
-                        name="last_name"
-                        value={updatedProfileData.last_name}
-                        onChange={handleInputChange}
-                    />
-                ) : (
-                    profileData.last_name
-                )}
-            </p>
-            <p>Email: {profileData.email}</p>
-            <p>
-                Address:{" "}
-                {isEditing ? (
-                    <input
-                        type="text"
-                        name="address"
-                        value={updatedProfileData.address}
-                        onChange={handleInputChange}
-                    />
-                ) : (
-                    profileData.address
-                )}
-            </p>
-            <p>
-                Phone number:{" "}
-                {isEditing ? (
-                    <input
-                        type="tel"
-                        name="phone_number"
-                        value={updatedProfileData.phone_number}
-                        onChange={handleInputChange}
-                    />
-                ) : (
-                    profileData.phone_number
-                )}
-            </p>
+        <><div className="d-flex align-items-center" style={{paddingLeft:"40%"}}>
+
+
+            <h1 >Profile</h1>
+
+
+
+    {!isEditing && (
+    <button style={{marginTop:"10px", marginLeft:"30px"}} className="button_small1" onClick={handleEdit}>
+        Change account details
+    </button>
+
+)}
+    </div>
+                <hr/>
+
+<div style={{ paddingLeft: "40%", paddingRight:"40%"}} >
+    <p className="profile-field">
+        <label htmlFor="firstNameField">First Name:</label>
+        {isEditing ? (
+            <input
+                type="text"
+                id="firstNameField"
+                name="first_name"
+                value={updatedProfileData.first_name}
+                onChange={handleInputChange}
+                required
+            />
+        ) : (
+            profileData.first_name
+        )}
+    </p>
+
+    <p className="profile-field">
+        <label htmlFor="lastNameField">Last Name:</label>
+        {isEditing ? (
+            <input
+                type="text"
+                id="lastNameField"
+                name="last_name"
+                value={updatedProfileData.last_name}
+                onChange={handleInputChange}
+                required
+            />
+        ) : (
+            profileData.last_name
+        )}
+    </p>
+
+    <p className="profile-field">
+        <label htmlFor="emailField">Email:</label>
+        {profileData.email}
+    </p>
+
+    <p className="profile-field">
+        <label htmlFor="addressField">Address:</label>
+        {isEditing ? (
+            <input
+                type="text"
+                id="addressField"
+                name="address"
+                value={updatedProfileData.address}
+                onChange={handleInputChange}
+                required
+            />
+        ) : (
+            profileData.address
+        )}
+    </p>
+
+    <p className="profile-field">
+        <label htmlFor="phoneNumberField">Phone Number:</label>
+        {isEditing ? (
+            <input
+                type="tel"
+                id="phoneNumberField"
+                name="phone_number"
+                value={updatedProfileData.phone_number}
+                onChange={handleInputChange}
+                required
+            />
+        ) : (
+            profileData.phone_number
+        )}
+    </p>
             {isEditing ? (
                 <div>
                     <button className="button_small" onClick={handleSave}>
@@ -151,10 +191,19 @@ const NotesProfile = () => {
                     <button className="button_small" onClick={handleCancel}>
                         Cancel
                     </button>
+                    <button className="button_small" onClick={() => (window.location.href = "/changepassword")}>
+                        Change password
+                    </button>
+                    <h6 className="error">{errorText}</h6>
                 </div>
+
             ) : null}
+
         </div>
+
+</>
     );
+
 };
 
 export default NotesProfile;

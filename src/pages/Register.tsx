@@ -1,7 +1,7 @@
 import './Register.css';
 import {SyntheticEvent, useState} from "react";
 import axios, {AxiosError} from "axios";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 const Register = () => {
   const[firstName, setFirstName] = useState('');
@@ -149,7 +149,8 @@ const Register = () => {
                         />
                         <label htmlFor="floatingPassword">Repeat Password</label>
                     </div>
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+                    <button className="button_wide_reg" type="submit">Register</button>
+                    <p style={{marginLeft:'20px'}}>Already have an account? <Link to="/login">Login here!</Link></p>
                     <h6 className="error">{errorText}</h6>
                 </form>
             </main>

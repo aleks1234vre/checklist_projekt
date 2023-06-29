@@ -110,7 +110,7 @@ const CreateTask = () => {
             ></textarea>
                         <label htmlFor="floatingContent">Task description</label>
                     </div>
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">
+                    <button className="button_wide" type="submit">
                         Create
                     </button>
                     <h6 className="error">{errorText}</h6>

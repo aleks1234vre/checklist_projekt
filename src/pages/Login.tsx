@@ -1,7 +1,7 @@
 import './Register.css';
 import {SyntheticEvent, useEffect, useState} from "react";
 import axios, { AxiosError } from "axios";
-import { Navigate } from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -59,7 +59,8 @@ const Login = () => {
                                onChange={(e) => setPass(e.target.value)} required/>
                         <label htmlFor="floatingPassword">Password</label>
                     </div>
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+                    <button className="button_wide" type="submit">Login</button>
+                    <p style={{marginLeft:'20px'}}>Not a registered user? <Link to="/register">Register here!</Link></p>
                     <h6 className="error">{errorText}</h6>
                 </form>
             </main>

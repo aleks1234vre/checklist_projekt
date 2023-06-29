@@ -75,7 +75,7 @@ const TaskView = () => {
                 </label>
             </div>
             {isStatusChanged && (
-                <button onClick={handleUpdate}>Update</button>
+                <button className="button_small" onClick={handleUpdate}>Update</button>
             )}
         </div>
     );

@@ -1,21 +1,39 @@
 const Welcome = () => {
   return (
-      <>
-          <section className="py-5 text-center container">
-              <div className="row py-lg-5">
-                  <div className="col-lg-6 col-md-8 mx-auto">
-                      <h1 className="fw-light">Album example</h1>
-                      <p className="lead text-body-secondary">Something short and leading about the collection
-                          below—its contents, the creator, etc. Make it short and sweet, but not too short so folks
-                          don’t simply skip over it entirely.</p>
-                      <p>
-                          <a href="#" className="btn btn-primary my-2">Main call to action</a>
-                          <a href="#" className="btn btn-secondary my-2">Secondary action</a>
-                      </p>
+        <>
+      <div>
+          {localStorage.getItem('hasCookie') ? (
+              <div>  <section className="py-5 text-center container">
+                  <div className="row py-lg-5">
+                      <div className="col-lg-6 col-md-8 mx-auto">
+                          <h1 className="fw-light">Welcome</h1>
+                          <p className="lead text-body-secondary">Welcome to your personal notes and task website!! </p>
+                          <p className="lead text-body-secondary">You can start off by making a new task/note or editing/finishing an existing one</p>
+
+                      </div>
                   </div>
+              </section>
               </div>
-          </section>
-      </>
+          ) : (
+              <div>  <section className="py-5 text-center container">
+              <div className="row py-lg-5">
+              <div className="col-lg-6 col-md-8 mx-auto">
+              <h1 className="fw-light">Welcome</h1>
+              <p className="lead text-body-secondary">Welcome to your personal notes and task website!! </p>
+              <p className="lead text-body-secondary">If you want to start with creating a new task or note, please register or login!</p>
+
+                  <button style={{ marginLeft: '13px' }} className="button_bigger"  onClick={() => (window.location.href = "/login")}>
+                      Create a task!
+                  </button>
+
+              </div>
+              </div>
+              </section>
+              </div>
+          )}
+
+      </div>
+            </>
   )
 }
 

@@ -9,6 +9,7 @@ import Profile from "./pages/profile.tsx";
 import CreateCategoryAdmin from "./pages/CreateCategory(admin).tsx";
 import TasksProfile from "./pages/TasksProfile.tsx";
 import TaskView from "./pages/TaskView.tsx";
+import ChangePassword from "./pages/ChangePassword.tsx";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                     <Route path={'tasksprofile'} element={<TasksProfile/>} />
                     <Route path={'createcategory'} element={<CreateCategoryAdmin/>} />
                     <Route path={'/task/:id'} element={<TaskView/>} />
+                    <Route path={'/changepassword'} element={<ChangePassword/>} />
 
                 </Routes>
             </BrowserRouter>
