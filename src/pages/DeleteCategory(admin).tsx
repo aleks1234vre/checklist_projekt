@@ -71,7 +71,7 @@ const DeleteCategory = () => {
     return (
         <>
             {isAdmin?(<div>
-                <h2 style={{ paddingLeft: "40%", paddingRight: "40%" }}>Edit Category (admin)</h2>
+                <h2 style={{ paddingLeft: "40%", paddingRight: "40%" }}>Delete Category (admin)</h2>
                 <hr></hr>
                 <form style={{ paddingLeft: "40%", paddingRight: "40%" }}>
         {categories.length > 0 ? (
