@@ -5,11 +5,16 @@ type CardProps = {
     title: string;
     description: string;
     taskId: number;
+    category_name: string;
 };
 
-const Card = ({ title, description, taskId }: CardProps) => {
+const Card = ({ title, description, taskId, category_name }: CardProps) => {
     const [status, setStatus] = useState(false);
     const [showUpdateButton, setShowUpdateButton] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [redirect, setRedirect] = useState(false);
+    const [message, setMessage] = useState("");
+
 
     useEffect(() => {
         const fetchStatus = async () => {
@@ -19,18 +24,18 @@ const Card = ({ title, description, taskId }: CardProps) => {
                 setStatus(task.status);
             } catch (error) {
                 console.error("Error fetching task status:", error);
-                // Handle the error or display an error message to the user
             }
         };
 
         fetchStatus();
     }, [taskId]);
 
+
+
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.checked);
         setShowUpdateButton(true);
     };
-
     const handleUpdate = async () => {
         try {
             const updatedTask = {
@@ -41,14 +46,40 @@ const Card = ({ title, description, taskId }: CardProps) => {
             await axios.patch(`http://localhost:3000/tasks/${taskId}`, updatedTask, {
                 withCredentials: true,
             });
-
+            setMessage("Task updated!!");
             console.log("Task updated successfully");
-            // You can handle the response or perform additional actions here
+
+            setTimeout(() => {
+                setMessage("");
+            }, 1000); // 1 second timeout
         } catch (error) {
             console.error("Error updating task:", error);
-            // Handle the error or display an error message to the user
         }
     };
+
+    const handleDelete = () => {
+        setShowConfirmation(true);
+    };
+
+    const confirmDelete = async () => {
+        try {
+            // Send delete request
+            await axios.delete(`http://localhost:3000/tasks/${taskId}`, {
+                withCredentials: true,
+            });
+            setRedirect(true);
+            console.log("Task deleted successfully");
+        } catch (error) {
+            console.error("Error deleting task:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (redirect) {
+            // Perform the page refresh here
+            window.location.reload();
+        }
+    }, [redirect]);
 
     return (
         <>
@@ -65,7 +96,6 @@ const Card = ({ title, description, taskId }: CardProps) => {
                         focusable="false"
                     >
                         <rect width="100%" height="100%" fill="#E1C16E" />
-                        <title>siva je</title>
                         <foreignObject width="100%" height="100%">
                             <div style={{ wordWrap: "break-word" }}>
                                 <p
@@ -87,9 +117,32 @@ const Card = ({ title, description, taskId }: CardProps) => {
                                 checked={status}
                                 onChange={handleCheckboxChange}
                             />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">
-                                Finished
-                            </label>
+                            <tr className="d-flex justify-content-between align-items-center">
+                                <td>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                        Finished
+                                    </label>
+                                </td>
+                                <td>
+                                    <h6 className="success" style={{ paddingLeft: "10px" }}>
+                                        {message}
+                                    </h6>
+                                </td>
+                            <td style={{paddingLeft:"10em"}}>
+                                {category_name}
+                            </td>
+                            </tr>
+                            <rect width="100%" height="100%" fill="#E1C16E" />
+                            <foreignObject width="100%" height="100%">
+                                <div style={{ wordWrap: "break-word" }}>
+                                    <p
+                                        className="card-text"
+                                        style={{ padding: "15px", whiteSpace: "pre-wrap" }}
+                                    >
+
+                                    </p>
+                                </div>
+                            </foreignObject>
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="btn-group">
@@ -103,8 +156,18 @@ const Card = ({ title, description, taskId }: CardProps) => {
                                 <button
                                     type="button"
                                     className="btn btn-sm btn-outline-secondary"
+                                    onClick={() =>
+                                        (window.location.href = `/task/${taskId}/edit`)
+                                    }
                                 >
                                     Edit
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-sm btn-outline-danger"
+                                    onClick={handleDelete}
+                                >
+                                    Delete
                                 </button>
                             </div>
                             {showUpdateButton && (
@@ -120,6 +183,32 @@ const Card = ({ title, description, taskId }: CardProps) => {
                     </div>
                 </div>
             </div>
+
+            {/* Confirmation Popup */}
+            {showConfirmation && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p style={{ fontWeight: "bold", color: "red" }}>
+                            Are you sure you want to delete this task?
+                        </p>
+                        <div className="popup-buttons">
+                            <button
+                                className="btn btn-sm btn-outline-danger"
+                                onClick={confirmDelete}
+                            >
+                                Confirm Delete
+                            </button>
+
+                            <button
+                                className="btn btn-sm btn-outline-secondary"
+                                onClick={() => setShowConfirmation(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };

@@ -166,7 +166,23 @@ button:focus-visible {
 .button_wide{
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 8em;
+  padding: 0.6em 10.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #E1C16E;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin-top: 10px;
+  color: black ;
+  text-align: center;
+
+}
+
+.button_wide_account{
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 6.3em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -221,7 +237,7 @@ button:focus-visible {
 
 .profile-field input,
 .profile-field textarea {
-  width: 300px;
+  width: 19.5em;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -260,7 +276,17 @@ button:focus-visible {
 .error-message {
   color: red;
   margin-top: 5px;
+  font-weight: bold;
 }
+
+.success{
+
+color:green;
+font-weight: bold;
+
+
+}
+
 .custom-navbar {
   background-color: #181515; /* Set the background color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Add the box shadow */
@@ -277,14 +303,76 @@ button:focus-visible {
   /* Add any additional styling as needed */
 }
 
-.custom-navbar .button_bigger {
-  /* Add styles for the buttons */
-  /* Adjust the button styles as needed */
-}
-
 .custom-home{
 color:#ffffff;
   font-size: 25px;
 
 
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: black;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.task_description{
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.2em 0.8em;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #e1c48e;
+  transition: border-color 0.25s;
+  color: black ;
+}
+
+checkbox_task{
+
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.2em 0.8em;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #e1c48e;
+  transition: border-color 0.25s;
+  color: black ;
 }

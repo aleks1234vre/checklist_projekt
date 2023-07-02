@@ -59,7 +59,7 @@ const Login = () => {
                                onChange={(e) => setPass(e.target.value)} required/>
                         <label htmlFor="floatingPassword">Password</label>
                     </div>
-                    <button className="button_wide" type="submit">Login</button>
+                    <button  style={{paddingRight:"8.7em"}} className="button_wide_reg" type="submit">Login</button>
                     <p style={{marginLeft:'20px'}}>Not a registered user? <Link to="/register">Register here!</Link></p>
                     <h6 className="error">{errorText}</h6>
                 </form>

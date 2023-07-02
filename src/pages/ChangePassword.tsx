@@ -18,6 +18,7 @@ const ChangePassword = () => {
             return;
         }
 
+
         // Make a PATCH request to the change password endpoint
         axios
             .patch(
@@ -26,12 +27,15 @@ const ChangePassword = () => {
                 { withCredentials: true } // Add withCredentials option
             )
             .then(response => {
-                // Password changed successfully
                 setSuccessMessage(response.data.message);
                 setErrorText('');
                 setCurrentPassword('');
                 setNewPassword('');
                 setConfirmPassword('');
+
+                setTimeout(() => {
+                    window.location.href = "/profile"
+                }, 1500);
             })
             .catch(error => {
                 // Handle error
@@ -44,10 +48,14 @@ const ChangePassword = () => {
     };
 
     return (
-        <div>
-            <h2>Change Password</h2>
+        <>
+
+            <h2 style={{ paddingLeft: "40%", paddingRight: "40%" }}>Change Password</h2>
+            <hr></hr>
+            <div style={{ paddingLeft: "40%", paddingRight: "40%" }}>
             <form>
                 <div>
+                    <p className="profile-field">
                     <label>Current Password:</label>
                     <input
                         type="password"
@@ -56,8 +64,10 @@ const ChangePassword = () => {
                         onChange={e => setCurrentPassword(e.target.value)}
 
                     />
+                    </p>
                 </div>
                 <div>
+                    <p className="profile-field">
                     <label>New Password:</label>
                     <input
                         type="password"
@@ -66,22 +76,29 @@ const ChangePassword = () => {
 
 
                     />
+                    </p>
                 </div>
                 <div>
+                    <p className="profile-field">
                     <label>Confirm Password:</label>
                     <input
                         type="password"
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
                     />
+                    </p>
                 </div>
                 {successMessage && <p className="success">{successMessage}</p>}
-                <button className="button_small" type="button" onClick={handleChangePassword}>
+                <button  className="button_small" type="button" onClick={handleChangePassword}>
                     Change Password
+                </button>
+                <button  className="button_small" type="button"  onClick={() => (window.location.href = "/profile")}>
+                    Cancel
                 </button>
                 <h6 className="error">{errorText}</h6>
             </form>
-        </div>
+            </div>
+            </>
     );
 };
 

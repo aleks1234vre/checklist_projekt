@@ -8,7 +8,7 @@ const style = {
 
 const CreateTask = () => {
     const [title_task, setTitleTask] = useState("");
-    const [description_task, setDescription] = useState([""]); // State for task descriptions
+    const [description_task, setDescription] = useState([""]);
     const [category_id, setCategory] = useState(1);
 
     const [errorText, setErrorText] = useState("");
@@ -61,10 +61,11 @@ const CreateTask = () => {
 
     return (
         <>
-            <main className="form-signin w-100 m-auto">
-                <h2 className="error">{errorText}</h2>
-                <form onSubmit={submit}>
-                    <h1 className="h3 mb-3 fw-normal">Create a new task</h1>
+
+                < h2 style={{ paddingLeft: "40%", paddingRight: "40%" }}>Create a new task</h2>
+                <hr></hr>
+                <form style={{ paddingLeft: "40%", paddingRight: "40%" }} onSubmit={submit}>
+
                     <div className="form-floating">
                         <input
                             type="text"
@@ -115,7 +116,7 @@ const CreateTask = () => {
                     </button>
                     <h6 className="error">{errorText}</h6>
                 </form>
-            </main>
+
         </>
     );
 };

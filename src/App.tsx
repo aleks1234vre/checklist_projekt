@@ -10,6 +10,9 @@ import CreateCategoryAdmin from "./pages/CreateCategory(admin).tsx";
 import TasksProfile from "./pages/TasksProfile.tsx";
 import TaskView from "./pages/TaskView.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
+import DeleteCategoryAdmin from "./pages/DeleteCategory(admin).tsx";
+import EditCategoryAdmin from "./pages/EditCategoryAdmin.tsx";
+import EditTask from "./pages/EditTask.tsx";
 
 function App() {
 
@@ -27,6 +30,11 @@ function App() {
                     <Route path={'createcategory'} element={<CreateCategoryAdmin/>} />
                     <Route path={'/task/:id'} element={<TaskView/>} />
                     <Route path={'/changepassword'} element={<ChangePassword/>} />
+                    <Route path={'/deletecategory'} element={<DeleteCategoryAdmin/>} />
+                    <Route path={'/editcategory'} element={<EditCategoryAdmin/>} />
+                    <Route path={'/task/:id/edit'} element={<EditTask/>} />
+
+
 
                 </Routes>
             </BrowserRouter>

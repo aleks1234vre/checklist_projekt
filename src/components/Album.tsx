@@ -54,6 +54,7 @@ const Album = () => {
                                     title={task.title_task}
                                     description={task.description_task}
                                     taskId={task.id}
+                                    category_name={task.category.category_name}
                                 />
                             </div>
                         ))}
