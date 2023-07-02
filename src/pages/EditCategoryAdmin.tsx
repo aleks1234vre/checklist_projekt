@@ -117,7 +117,7 @@ const CreateTask = () => {
                                         id="floatingSelect"
                                         placeholder="Category"
                                         onChange={(e) => {
-                                            const selectedCategory = categories.find(
+                                            const selectedCategory:any = categories.find(
                                                 (category:any) => category.id === Number(e.target.value)
                                             );
                                             setCategory(Number(e.target.value));

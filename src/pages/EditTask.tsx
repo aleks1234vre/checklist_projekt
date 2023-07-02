@@ -7,7 +7,8 @@ interface Task {
     title_task: string;
     description_task: string;
     status: boolean;
-    category_id: number;
+    category_id: number | null;
+    finished_at: string | null;
 }
 
 interface Category {
@@ -77,10 +78,11 @@ const EditTask = () => {
                 ...task!,
                 title_task: editTitle,
                 description_task: editDescription,
-                category_id: selectedCategoryId,
+                category_id: selectedCategoryId ?? 0,
                 status: checkboxState,
                 finished_at: status ? new Date().toISOString() : null,
             };
+
 
             await axios.patch(`http://localhost:3000/tasks/${task!.id}`, updatedTask, { withCredentials: true });
             console.log('Task updated successfully');

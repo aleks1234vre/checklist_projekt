@@ -8,7 +8,7 @@ const style = {
 
 const CreateTask = () => {
     const [title_task, setTitleTask] = useState("");
-    const [description_task, setDescription] = useState([""]);
+    const [description_task, setDescription] = useState("");
     const [category_id, setCategory] = useState(1);
 
     const [errorText, setErrorText] = useState("");
@@ -83,7 +83,7 @@ const CreateTask = () => {
                                 className="form-control"
                                 id="floatingSelect"
                                 placeholder="Category"
-                                onChange={(e) => setCategory(e.target.value)}
+                                onChange={(e) => setCategory(Number(e.target.value))}
                             >
                                 {categories.map((category: any, i) => {
                                     return (
@@ -99,16 +99,16 @@ const CreateTask = () => {
                         <div>Loading categories...</div>
                     )}
                     <div className="form-floating d-grid">
-            <textarea
-                className="form-control"
-                id="floatingContent"
-                placeholder="Task description"
-                style={style}
-                rows={6}
-                value={description_task}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-            ></textarea>
+          <textarea
+              className="form-control"
+              id="floatingContent"
+              placeholder="Task description"
+              style={style}
+              rows={6}
+              value={description_task}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+          ></textarea>
                         <label htmlFor="floatingContent">Task description</label>
                     </div>
                     <button className="button_wide" type="submit">

@@ -8,7 +8,6 @@ const DeleteCategory = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [categories, setCategories] = useState([]);
     const [category_id, setCategory] = useState(1);
-    const [category_name, setCategoryName] = useState("");
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [description, setDescription] = useState("");
     const [errorText, setErrorText] = useState("");
@@ -17,7 +16,6 @@ const DeleteCategory = () => {
             const response = await axios.get('http://localhost:3000/categories');
             setCategories(response.data);
             if (response.data.length > 0) {
-                setCategoryName(response.data[0].category_name);
                 setDescription(response.data[0].description);
             }
         } catch (error) {
@@ -80,11 +78,10 @@ const DeleteCategory = () => {
                 id="floatingSelect"
                 placeholder="Category"
                 onChange={(e) => {
-                    const selectedCategory = categories.find(
+                    const selectedCategory:any = categories.find(
                         (category:any) => category.id === Number(e.target.value)
                     );
                     setCategory(Number(e.target.value));
-                    setCategoryName(selectedCategory?.category_name || "");
                     setDescription(selectedCategory?.description || "");
 
                 }}
