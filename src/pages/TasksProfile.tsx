@@ -8,7 +8,7 @@ type Task = {
     description_task: string;
     created_at: string;
     category_id: number;
-    category:Category;
+    category: Category;
 };
 
 type Category = {
@@ -24,26 +24,9 @@ const TasksProfile = () => {
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-        const fetchTasks = async () => {{tasks.map((task) => (
-            <div
-                key={task.id}
-                style={{
-                    width: "23%",
-                    marginBottom: "10px",
-                    marginRight: "20px",
-                }}
-            >
-                <Card
-                    title={task.title_task}
-                    description={task.description_task}
-                    taskId={task.id}
-                    category_name={task.category_id}
-                />
-            </div>
-        ))}
+        const fetchTasks = async () => {
             try {
                 const tasksResponse = await axios.get("http://localhost:3000/tasks", {
-                    params: { category: selectedCategory },
                     withCredentials: true,
                 });
                 const sortedTasks = tasksResponse.data.sort((a: Task, b: Task) => {
@@ -70,7 +53,7 @@ const TasksProfile = () => {
 
         fetchTasks();
         fetchCategories();
-    }, [selectedCategory]);
+    }, []);
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCategory(e.target.value);
@@ -88,6 +71,7 @@ const TasksProfile = () => {
                 );
             }
         });
+
         setTasks(sorted);
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     };
@@ -96,12 +80,18 @@ const TasksProfile = () => {
         return <div>Loading...</div>;
     }
 
+    const filteredTasks = selectedCategory
+        ? tasks.filter((task: Task) => task.category.category_name === selectedCategory)
+        : tasks;
+
     return (
         <div>
             {localStorage.getItem("hasCookie") ? (
                 <>
                     <h1 style={{ paddingLeft: "6%" }}>All tasks</h1>
-                    <label style={{ paddingLeft: "6%" }} htmlFor="category">Sort by:</label>
+                    <label style={{ paddingLeft: "6%" }} htmlFor="category">
+                        Filter by Category:
+                    </label>
                     <select
                         id="category"
                         value={selectedCategory}
@@ -127,8 +117,7 @@ const TasksProfile = () => {
                             paddingLeft: "6%",
                         }}
                     >
-
-                        {tasks.map((task) => (
+                        {filteredTasks.map((task) => (
                             <div
                                 key={task.id}
                                 style={{
