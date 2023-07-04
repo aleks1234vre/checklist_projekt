@@ -42,7 +42,7 @@ const TaskView = () => {
         };
 
         fetchTask();
-    }, [id]);
+    }, []);
 
     const handleCheckboxChange = () => {
         setCheckboxState(!checkboxState);
@@ -130,6 +130,7 @@ const TaskView = () => {
                 Back to your <Link to="/tasksprofile">tasks!</Link>
             </p>
         </div>
+        
     );
 };
 

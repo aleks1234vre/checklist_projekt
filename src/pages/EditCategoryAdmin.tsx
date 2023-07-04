@@ -25,7 +25,7 @@ const EditCategory = () => {
                 setDescription(response.data[0].description);
             }
         } catch (error) {
-            // Handle error
+            //
         }
     };
 

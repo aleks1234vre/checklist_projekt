@@ -51,7 +51,7 @@ const CreateTask = () => {
                 setErrorText("napaka");
             }
         } catch (error) {
-            // Handle error
+            //
         }
     };
 

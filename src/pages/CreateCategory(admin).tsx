@@ -26,7 +26,7 @@ const CreateCategory: React.FC = () => {
                 "http://localhost:3000/categories",
                 categoryData, {withCredentials: true,});
                 {
-
+//
                 }
 
             if (response.status === 201) {
@@ -36,7 +36,7 @@ const CreateCategory: React.FC = () => {
             }
 
         } catch (error) {
-            // Handle error
+            //
         }
 
     };

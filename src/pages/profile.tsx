@@ -43,7 +43,7 @@ const NotesProfile = () => {
     const handleEdit = () => {
         setUpdatedProfileData({
             ...profileData,
-            id: profileData.id, // Include the id field
+            id: profileData.id,
         });
         setIsEditing(true);
     };
@@ -79,8 +79,7 @@ const NotesProfile = () => {
             setIsEditing(false);
             console.log("Profile updated successfully");
         } catch (error) {
-            console.error("Error updating profile:", error);
-            // Handle the error or display an error message to the user
+            console.error("Error updating profile:", error);// Handle the error or display an error message to the user
         }
     };
 
@@ -104,7 +103,7 @@ const NotesProfile = () => {
             window.location.href = "/"
             
 
-            // Redirect to a specific page after successful deletion, or perform any other action
+
 
         } catch (error) {
             console.error("Error deleting account:", error);
@@ -220,7 +219,6 @@ const NotesProfile = () => {
                 ) : null}
             </div>
 
-            {/* Confirmation Popup */}
             {showConfirmation && (
                 <div  style={{ paddingLeft: "40%", paddingRight: "40%" }} className="popup">
                     <div className="popup-content">

@@ -12,7 +12,6 @@ const Login = () => {
 
     useEffect(() => {
         if (redirect) {
-            // Perform the page refresh here
             window.location.reload();
         }
     }, [redirect]);
