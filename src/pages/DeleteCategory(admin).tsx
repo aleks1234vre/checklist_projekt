@@ -19,7 +19,7 @@ const DeleteCategory = () => {
                 setDescription(response.data[0].description);
             }
         } catch (error) {
-            // Handle error
+            //
         }
     };
 
@@ -44,7 +44,7 @@ const DeleteCategory = () => {
                     setErrorText("you're not an admin!!")
                 }
             } catch (error) {
-                // Handle error
+                //
             }
         };
 
@@ -57,7 +57,6 @@ const DeleteCategory = () => {
             await axios.delete(`http://localhost:3000/categories/${category_id}`);
             console.log('Category deleted successfully');
             window.location.reload();
-            // Refresh categories after deletion
             getCategories();
         } catch (error) {
             console.error('Error deleting category:', error);

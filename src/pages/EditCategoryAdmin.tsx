@@ -6,7 +6,7 @@ const style = {
     height: "100%",
 };
 
-const CreateTask = () => {
+const EditCategory = () => {
     const [category_id, setCategory] = useState(1);
     const [category_name, setCategoryName] = useState("");
     const [description, setDescription] = useState("");
@@ -186,4 +186,4 @@ const CreateTask = () => {
     );
 };
 
-export default CreateTask;
+export default EditCategory;

@@ -19,12 +19,12 @@ const ChangePassword = () => {
         }
 
 
-        // Make a PATCH request to the change password endpoint
+
         axios
             .patch(
                 'http://localhost:3000/auth/changepassword',
                 { currentPassword, newPassword },
-                { withCredentials: true } // Add withCredentials option
+                { withCredentials: true }
             )
             .then(response => {
                 setSuccessMessage(response.data.message);

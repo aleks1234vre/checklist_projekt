@@ -7,7 +7,7 @@ const CreateCategory: React.FC = () => {
     const [categoryData, setCategoryData] = useState({
         category_name: "",
         description: "",
-        // other category properties
+
     });
 
 
@@ -26,7 +26,7 @@ const CreateCategory: React.FC = () => {
                 "http://localhost:3000/categories",
                 categoryData, {withCredentials: true,});
                 {
-                    // Add any necessary headers for admin authorization
+
                 }
 
             if (response.status === 201) {
@@ -53,7 +53,7 @@ const CreateCategory: React.FC = () => {
                     setErrorText("you're not an admin!!")
                 }
             } catch (error) {
-                // Handle error
+                //
             }
         };
 
